@@ -1,0 +1,279 @@
+/**
+ * ============================================================================
+ * simulator.css - 書籍風・テクニカルノート調シミュレータ用スタイル (Chapter 4)
+ * ============================================================================
+ */
+
+.simulator-container {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* 3カラムグリッドレイアウト */
+.sim-grid {
+  display: grid;
+  grid-template-columns: 310px 1fr 330px;
+  gap: 20px;
+  margin-top: 12px;
+}
+
+@media (max-width: 1080px) {
+  .sim-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sim-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.sim-panel-title {
+  font-family: var(--font-serif);
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--text-ink);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* 物理ドアビュー (テクニカルイラスト風) */
+.car-door-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.door-svg-container {
+  width: 240px;
+  height: 250px;
+  background: #f4efe6;
+  border: 2px solid var(--border-color);
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 12px rgba(60, 50, 40, 0.08);
+}
+
+.door-frame {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  width: 200px;
+  height: 180px;
+  border: 8px solid #3c3630;
+  border-bottom: 14px solid #2a2521;
+  border-radius: 16px 16px 0 0;
+  background: #e8e1d3;
+  overflow: hidden;
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.window-glass {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(80, 130, 175, 0.45) 0%, rgba(120, 170, 210, 0.25) 100%);
+  border-top: 3px solid #4a82a6;
+  transition: bottom 0.05s linear;
+  bottom: 0%;
+}
+
+.pinch-obstacle {
+  position: absolute;
+  top: 15px;
+  left: 70px;
+  width: 60px;
+  height: 35px;
+  background: var(--accent-crimson);
+  border: 2px solid #752011;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: bold;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  animation: bookPulse 1s infinite;
+}
+
+@keyframes bookPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+/* インジケーター */
+.sim-indicators {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.sim-ind-card {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 8px;
+  text-align: center;
+}
+
+.sim-ind-label {
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  margin-bottom: 2px;
+}
+
+.sim-ind-val {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.motor-up { color: var(--accent-forest); }
+.motor-down { color: var(--accent-amber); }
+.motor-stop { color: var(--text-dim); }
+
+/* 操作ボタングループ */
+.ctrl-group-title {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: var(--text-ink);
+  margin-top: 4px;
+}
+
+.ctrl-btn-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.sim-ctrl-btn {
+  padding: 9px 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-ink);
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  text-align: center;
+  line-height: 1.35;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+
+.sim-ctrl-btn:hover {
+  background: var(--bg-subtle);
+  border-color: var(--border-dark);
+}
+
+.sim-ctrl-btn:active {
+  background: var(--border-color);
+}
+
+.sim-ctrl-btn.danger {
+  border-color: rgba(158, 54, 35, 0.4);
+  color: var(--accent-crimson);
+  background: var(--accent-crimson-bg);
+}
+
+.sim-ctrl-btn.danger:hover {
+  background: #f7dcd5;
+}
+
+/* 中央: 有向グラフ (製図板・活版ダイアグラム風) */
+.stateflow-container {
+  width: 100%;
+  height: 480px;
+  background: #fcfbfa;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  background-image: linear-gradient(#f2ebe0 1px, transparent 1px), linear-gradient(to right, #f2ebe0 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* 右パネル: 不変条件 ＆ Event-Bログ */
+.invariants-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inv-item {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 0.76rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.inv-item.pass {
+  border-left: 4px solid var(--accent-forest);
+}
+
+.inv-item.fail {
+  border-left: 4px solid var(--accent-crimson);
+  background: var(--accent-crimson-bg);
+}
+
+.sim-log-box {
+  background: #f8f6f0;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 10px 12px;
+  height: 180px;
+  overflow-y: auto;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  line-height: 1.5;
+  color: var(--text-ink);
+}
+
+.log-entry {
+  margin-bottom: 5px;
+}
+
+.log-time {
+  color: var(--text-muted);
+}
+
+.log-event {
+  color: var(--accent-indigo);
+  font-weight: 700;
+}
+
+.log-trans {
+  color: var(--accent-forest);
+  font-weight: 600;
+}
+
+.log-guard {
+  color: var(--accent-amber);
+}

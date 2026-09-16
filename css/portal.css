@@ -1,0 +1,350 @@
+/**
+ * ============================================================================
+ * portal.css - 書籍風 Topポータル・目次画面スタイル
+ * ============================================================================
+ */
+
+/* ヒーローセクション (扉絵・序文風) */
+.portal-hero {
+  background: var(--bg-card);
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  padding: 44px 40px;
+  margin-bottom: 40px;
+  position: relative;
+  box-shadow: var(--shadow-book);
+}
+
+.portal-hero::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  border: 1px solid var(--border-subtle);
+  pointer-events: none;
+  border-radius: 4px;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent-indigo-bg);
+  color: var(--accent-indigo);
+  border: 1px solid rgba(36, 66, 95, 0.2);
+  padding: 3px 12px;
+  border-radius: 3px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-bottom: 18px;
+}
+
+.hero-title {
+  font-family: var(--font-serif);
+  font-size: 2.1rem;
+  color: var(--text-ink);
+  font-weight: 700;
+  margin-bottom: 16px;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+}
+
+.hero-title code {
+  font-family: var(--font-mono);
+  background: var(--bg-subtle);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 0.9em;
+  border: 1px solid var(--border-color);
+}
+
+.hero-subtitle {
+  font-size: 1.02rem;
+  color: var(--text-dim);
+  max-width: 840px;
+  line-height: 1.85;
+  margin-bottom: 28px;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 36px;
+  flex-wrap: wrap;
+  padding-top: 24px;
+  border-top: 1px dashed var(--border-color);
+}
+
+.hero-stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-stat-num {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--accent-crimson);
+}
+
+.hero-stat-label {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  letter-spacing: 0.03em;
+}
+
+/* ロードマップ (章立てフローチャート風) */
+.portal-roadmap-section {
+  margin-bottom: 44px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--border-dark);
+  padding-bottom: 10px;
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  color: var(--text-ink);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-subtitle {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+.roadmap-flow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 24px 20px;
+  overflow-x: auto;
+  gap: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.roadmap-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 140px;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+
+.roadmap-step:hover {
+  transform: translateY(-2px);
+}
+
+.roadmap-node-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--bg-subtle);
+  border: 2px solid var(--border-color);
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 8px;
+  transition: all 0.2s;
+}
+
+.roadmap-step.active .roadmap-node-circle {
+  border-color: var(--accent-crimson);
+  color: var(--accent-crimson);
+  background: var(--accent-crimson-bg);
+}
+
+.roadmap-step.completed .roadmap-node-circle {
+  background: var(--accent-forest);
+  border-color: var(--accent-forest);
+  color: #fff;
+}
+
+.roadmap-step-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-family: var(--font-serif);
+  color: var(--text-ink);
+}
+
+.roadmap-step-desc {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.roadmap-edge-arrow {
+  flex: 1;
+  min-width: 24px;
+  height: 2px;
+  background: var(--border-color);
+  position: relative;
+}
+
+.roadmap-edge-arrow::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: -4px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 6px solid var(--border-color);
+}
+
+/* チャプターカード一覧 (目次・単元カード風) */
+.chapters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px;
+  margin-bottom: 44px;
+}
+
+.chapter-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-top: 4px solid var(--accent-indigo);
+  border-radius: 6px;
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+  box-shadow: var(--shadow-sm);
+}
+
+.chapter-card:hover {
+  border-top-color: var(--accent-crimson);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-book);
+}
+
+.chapter-card.is-completed {
+  border-top-color: var(--accent-forest);
+}
+
+.chapter-card.is-completed::before {
+  content: "✓ 読了";
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent-forest);
+  background: var(--accent-forest-bg);
+  border: 1px solid rgba(47, 93, 64, 0.3);
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+
+.card-top {
+  margin-bottom: 16px;
+}
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.card-title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  color: var(--text-ink);
+  font-weight: 700;
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+.card-subtitle {
+  font-size: 0.82rem;
+  color: var(--accent-crimson);
+  font-weight: 600;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.card-summary {
+  font-size: 0.85rem;
+  color: var(--text-main);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.card-points {
+  list-style: none;
+  background: var(--bg-subtle);
+  border-radius: 4px;
+  border-left: 3px solid var(--border-color);
+  padding: 12px 14px;
+  margin-bottom: 20px;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+
+.card-points li {
+  margin-bottom: 6px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.card-points li:last-child {
+  margin-bottom: 0;
+}
+
+.card-points li::before {
+  content: "・";
+  color: var(--accent-crimson);
+  font-weight: bold;
+}
+
+.card-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 16px;
+}
+
+.card-info-item {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* クイックツールバー (奥付前ツールバー) */
+.portal-footer-tools {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 14px 20px;
+  box-shadow: var(--shadow-sm);
+}

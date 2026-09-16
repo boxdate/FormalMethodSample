@@ -1,0 +1,430 @@
+/**
+ * ============================================================================
+ * main.css - 書籍風（Paper & Ink）デザイントークン・ベーススタイル
+ * ============================================================================
+ */
+
+:root {
+  /* 本の紙色・インク色 */
+  --bg-page: #fbf9f5;             /* 生成り・クラフト紙の柔らかい白 */
+  --bg-card: #ffffff;             /* 本のページ・カード面 */
+  --bg-subtle: #f4efe6;           /* 注釈欄・引用背景・薄いクリーム */
+  --bg-header: #ffffff;           /* ヘッダー白 */
+  --border-color: #e5ddd0;        /* 本の装丁・罫線 */
+  --border-subtle: #eee7db;       /* 薄い仕切り線 */
+  --border-dark: #3c3630;         /* 締まりのある細罫線 */
+
+  --text-ink: #2a2521;            /* 活版印刷の墨色 (本文) */
+  --text-main: #3d3731;           /* 読みやすい濃いセピアグレー */
+  --text-dim: #73695f;            /* 補足説明・注釈 */
+  --text-muted: #998e83;          /* 控えめなラベル */
+
+  /* 伝統的な装幀・栞・インクアクセント */
+  --accent-crimson: #9e3623;      /* 栞・朱色・強調 (Book Red) */
+  --accent-crimson-bg: #faeee9;
+  --accent-indigo: #24425f;       /* 万年筆インク・藍色 (Navy / Indigo) */
+  --accent-indigo-bg: #edf3f8;
+  --accent-forest: #2f5d40;       /* 深緑・正解 (Forest Green) */
+  --accent-forest-bg: #edf5f0;
+  --accent-amber: #b07827;        /* 箔押し・琥珀色 (Amber / Ochre) */
+  --accent-amber-bg: #faf3e6;
+  --accent-rust: #c04e38;         /* 警告・朱砂 */
+  --accent-rust-bg: #faece9;
+
+  /* レガシー互換マッピング */
+  --accent-blue: var(--accent-indigo);
+  --accent-blue-bg: var(--accent-indigo-bg);
+  --accent-green: var(--accent-forest);
+  --accent-green-bg: var(--accent-forest-bg);
+  --accent-orange: var(--accent-amber);
+  --accent-orange-bg: var(--accent-amber-bg);
+  --accent-red: var(--accent-rust);
+  --accent-red-bg: var(--accent-rust-bg);
+
+  /* タイポグラフィ */
+  --font-serif: "Yu Mincho", "Hiragino Mincho ProN", "YuMincho", Georgia, "Times New Roman", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "BIZ UDPGothic", Meiryo, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Courier New", monospace;
+
+  /* 影と陰影 (マットな書籍の厚み) */
+  --shadow-sm: 0 1px 3px rgba(60, 50, 40, 0.06);
+  --shadow-md: 0 4px 14px rgba(60, 50, 40, 0.08);
+  --shadow-book: 0 4px 20px rgba(45, 35, 25, 0.08), 0 1px 3px rgba(45, 35, 25, 0.04);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  font-size: 14.5px;
+  line-height: 1.75;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-image: radial-gradient(#e8dfd2 0.75px, transparent 0.75px);
+  background-size: 24px 24px;
+}
+
+/* ヘッダー (書名プレート風) */
+.app-header {
+  background-color: var(--bg-header);
+  border-bottom: 2px solid var(--border-color);
+  padding: 12px 28px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(60, 50, 40, 0.04);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--text-ink);
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  transition: color 0.15s;
+}
+
+.header-logo:hover {
+  color: var(--accent-crimson);
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-link-portal {
+  background: var(--bg-subtle);
+  color: var(--text-main);
+  padding: 4px 12px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.8rem;
+  border: 1px solid var(--border-color);
+  transition: all 0.15s;
+  font-weight: 500;
+}
+
+.nav-link-portal:hover {
+  background: var(--border-color);
+  color: var(--text-ink);
+}
+
+.breadcrumb-separator {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.current-ch-title {
+  color: var(--accent-crimson);
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* 進捗バーミニ (栞メーター) */
+.header-progress-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+
+.header-progress-bar-bg {
+  width: 90px;
+  height: 6px;
+  background: var(--border-color);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.header-progress-bar-fill {
+  height: 100%;
+  background: var(--accent-forest);
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+/* メインコンテナ (本の見開きレイアウト) */
+.app-main {
+  flex: 1;
+  max-width: 1140px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+}
+
+/* 共通バッジ (箔押し・スタンプ風) */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  border-radius: 4px;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+}
+
+.badge-blue {
+  background: var(--accent-indigo-bg);
+  color: var(--accent-indigo);
+  border: 1px solid rgba(36, 66, 95, 0.25);
+}
+
+.badge-green {
+  background: var(--accent-forest-bg);
+  color: var(--accent-forest);
+  border: 1px solid rgba(47, 93, 64, 0.25);
+}
+
+.badge-orange {
+  background: var(--accent-amber-bg);
+  color: var(--accent-amber);
+  border: 1px solid rgba(176, 120, 39, 0.25);
+}
+
+.badge-purple {
+  background: var(--accent-crimson-bg);
+  color: var(--accent-crimson);
+  border: 1px solid rgba(158, 54, 35, 0.25);
+}
+
+/* ボタン共通 (製本布・活版調の質感) */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: 5px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.15s ease-in-out;
+  text-decoration: none;
+  user-select: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.btn-primary {
+  background-color: var(--accent-crimson);
+  border-color: #872e1d;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #872e1d;
+  box-shadow: 0 2px 6px rgba(158, 54, 35, 0.3);
+}
+
+.btn-secondary {
+  background-color: var(--bg-card);
+  border-color: var(--border-color);
+  color: var(--text-main);
+}
+
+.btn-secondary:hover {
+  background-color: var(--bg-subtle);
+  border-color: var(--border-dark);
+  color: var(--text-ink);
+}
+
+.btn-accent {
+  background-color: var(--accent-indigo);
+  border-color: #1a3248;
+  color: #fff;
+}
+
+.btn-accent:hover {
+  background-color: #1a3248;
+  box-shadow: 0 2px 6px rgba(36, 66, 95, 0.3);
+}
+
+/* フッター (奥付風) */
+.app-footer {
+  border-top: 2px solid var(--border-color);
+  padding: 24px;
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 0.78rem;
+  background: var(--bg-subtle);
+  font-family: var(--font-serif);
+}
+
+/* ユニットテストモーダル */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(42, 37, 33, 0.6);
+  backdrop-filter: blur(3px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.modal-backdrop.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-dialog {
+  background: var(--bg-card);
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  width: 90%;
+  max-width: 760px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-book);
+  overflow: hidden;
+}
+
+.modal-header {
+  padding: 16px 22px;
+  border-bottom: 2px solid var(--border-color);
+  background: var(--bg-subtle);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-title {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal-close-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  font-size: 1.4rem;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.modal-close-btn:hover {
+  color: var(--text-ink);
+}
+
+.modal-body {
+  padding: 22px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--bg-page);
+}
+
+.test-summary-bar {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 14px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.test-category-group {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.test-category-title {
+  background: var(--bg-subtle);
+  padding: 10px 14px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-family: var(--font-serif);
+  color: var(--accent-indigo);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+}
+
+.test-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 14px;
+  font-size: 0.78rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.test-row:last-child {
+  border-bottom: none;
+}
+
+.test-name {
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.test-status-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+
+.test-status-pass {
+  background: var(--accent-forest-bg);
+  color: var(--accent-forest);
+  border: 1px solid rgba(47, 93, 64, 0.3);
+}
+
+.test-status-fail {
+  background: var(--accent-rust-bg);
+  color: var(--accent-rust);
+  border: 1px solid rgba(192, 78, 56, 0.3);
+}
